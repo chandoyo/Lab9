@@ -55,6 +55,15 @@
     <button>Trigger a Global Error</button>
   </section>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "699880472c9e44f6a631fb09f5eb59d2"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
+
   <script>
     let calculateBtn = document.querySelector('#calculate');
     calculateBtn.addEventListener('click', () => {
@@ -63,10 +72,136 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+  
+
+      // Create a custom Error
+      class MyError extends Error {
+        constructor(message) {
+          super(message);
+          this.name = "My Error";
+        }
+      }
+      // Throw error
+      try {
+        if(firstNum == '') {
+          throw new MyError("Blank Input for firstNum");
+        }
+        else if (secondNum == '') {
+          throw new MyError('Blank Input for secondNum');
+        }
+      }
+      catch(err) {
+        console.log("Found input error");
+      }
+
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     // TODO - Make buttons functional
+
+    const labelGroup = 'label for group';
+    const labelTime = 'label for timer';
+
+    // Make Console Log Demo functional
+    errorBtns[0].addEventListener( 'click', () => {
+      console.log('Console Log Demo');
+    });
+
+    // Make Console Error Demo functional
+    errorBtns[1].addEventListener('click', () => {
+      console.error('Console Error Demo');
+    })
+
+    // Console Dir
+    errorBtns[2].addEventListener('click', () => {
+      console.dir(errorBtns[2]);
+    });
+
+    // Console Dirxml
+    errorBtns[3].addEventListener('click', () => {
+      //console.dirxml(document);
+      console.dirxml(errorBtns[3]);
+    });
+
+    // Console Group Start
+    errorBtns[4].addEventListener('click', () => {
+      console.group(labelGroup);
+      console.info('Hi');
+      console.info('Group');
+    });
+
+    // Console Group End
+    errorBtns[5].addEventListener('click', () => {
+      console.groupEnd(labelGroup);
+    });
+
+    // Console Table
+    errorBtns[6].addEventListener('click', () => {
+      console.table([
+        {
+          first: 'Oscar',
+          last: 'Wang',
+          nationality: 'Brazil',
+        },
+        {
+          first: 'Jelly',
+          last: 'Lin',
+        }
+      ]);
+    });
+
+    // Start Timer
+    errorBtns[7].addEventListener('click', () => {
+      // console.time(labelTime);
+      console.time();
+      console.log(labelTime);
+      console.log('Timer start');
+    });
+
+    // End Timer
+    errorBtns[8].addEventListener('click', () => {
+      // console.timeEnd(labelTime);
+      console.timeEnd();
+      console.log(labelTime);
+      console.log('Timer end');
+    });
+
+    // Console Trace
+    errorBtns[9].addEventListener('click', () => {
+      const mika = () => { rikimaru(); };
+      const rikimaru = () => { santa(); };
+      const santa = () => { liuyu(); };
+      const liuyu = () => { console.trace(); };
+      mika();
+
+    });
+
+    // Trigger a global error
+
+    errorBtns[10].addEventListener('click', () => {
+      // Use try, catch, finally
+      try {
+        console.log('Uh Oh there will be an Error');
+        if (errorBtns[1] != errorBtns[2]) {
+          bigError();
+        }
+      }
+      catch (error) {
+        console.error('The error happened');
+      }
+      finally {
+        console.log('Finally?? The error...')
+      }
+    });
+
+
+
+
+
+
+
+
+
   </script>
 </body>
 </html>
