@@ -61,6 +61,12 @@
       token: "699880472c9e44f6a631fb09f5eb59d2"
       // for more configuration options, see https://docs.trackjs.com
     });
+
+    window.onerror = function(message, source, lineno, colno, error) {
+        console.log(message);
+        console.log("track js");
+        return false; // to fire event handler
+      }
   </script>
 
 
@@ -194,10 +200,7 @@
       }
 
 
-      window.onerror = function(message, source, lineno, colno, error) {
-        console.log(message);
-        console.log("track js");
-      }
+      
 
     });
 
