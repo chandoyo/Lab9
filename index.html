@@ -63,10 +63,13 @@
     });
 
     window.onerror = function(message, source, lineno, colno, error) {
-        console.log(message);
-        console.log("track js");
-        return false; // to fire event handler
-      }
+      console.log(message);
+      console.log("track js");
+      return false; // to fire event handler
+    }
+
+    TrackJS.track('Testing TrackJS!');
+                        
   </script>
 
 
@@ -92,12 +95,12 @@
         if(firstNum == '') {
           throw new MyError("Blank Input for firstNum");
         }
-        else if (secondNum == '') {
+        if (secondNum == '') {
           throw new MyError('Blank Input for secondNum');
         }
       }
       catch(err) {
-        console.log("Found input error");
+        console.error("Found input error");
       }
 
     });
